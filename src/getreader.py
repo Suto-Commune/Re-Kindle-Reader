@@ -22,10 +22,12 @@ def get():
                 break
         try:
             wget.download(url, "./reader/reader.jar")
+            print("")
         except:
             logging.warning("Cannot download the reader file.Try to download it from ghproxy.")
             try:
                 wget.download(f"https://ghproxy.com/{url}", "./reader/reader.jar")
+                print("")
             except:
                 logging.error(f"Cannot download the reader file.Try to download it from {url}"
                               f" by yourself,then rename it as \"reader.jar\",put it into the reader folder.")
