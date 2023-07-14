@@ -10,7 +10,7 @@ import importlib
 
 class Server:
     def __init__(self):
-        self.app = Flask(__name__, static_folder='../reader/RKR', static_url_path='/')
+        self.app = Flask(__name__, static_folder='./RKR', static_url_path='/')
         ...
 
     def start(self, debug: bool, port: int):
