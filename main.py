@@ -1,6 +1,7 @@
 import logging
 import src
 import config
+from src.server import Server
 
 logging.basicConfig(level=logging.INFO,
                     format='[%(asctime)s][%(levelname)s][%(filename)s] %(message)s',
@@ -19,9 +20,9 @@ if __name__ == "__main__":
     # 版权信息
     info()
     # 检查环境
-    check_env = src.getreader.get()
+    check_env = src.getready.get()
     # 启动线程
     Launcher = src.launcher.Launcher()
     Launcher.start()
-    while True:
-        ...
+    server = Server()
+    server.run_server(True, 5000)

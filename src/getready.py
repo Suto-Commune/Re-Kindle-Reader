@@ -11,6 +11,10 @@ def get():
         os.mkdir("reader")
     else:
         ...
+    if not os.path.exists("./reader/RKR"):
+        os.mkdir("./reader/RKR")
+    else:
+        ...
 
     if not "jar" in str(os.listdir("./reader")):
         logging.warning("Reader not found.Try to download it from github.")
