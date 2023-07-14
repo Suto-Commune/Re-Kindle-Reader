@@ -25,7 +25,7 @@ def get_book_shelf():
                 # 分类
                 "kind": i["kind"],
                 # 封面
-                "cover": i["coverUrl"],
+                "cover": i["coverUrl"] if dict(i).get("coverUrl") is not None else "/asset/img/noCover.jpeg",
                 # 介绍
                 "intro": i["intro"],
                 # 组
@@ -35,7 +35,7 @@ def get_book_shelf():
                 # 总章节数(从0开始)
                 "total_index": int(i["totalChapterNum"]),
                 # 最后阅读标题
-                "last_title": i["durChapterTitle"],
+                "last_title": i["durChapterTitle"] if dict(i).get("durChapterTitle") is not None else "从未读过",
                 # 最后阅读的章节(从0开始)
                 "last_index": int(i["durChapterIndex"])
             }
@@ -86,3 +86,13 @@ def get_book_content(book_url: str, index: int):
     }
     return data
 
+
+# 处理函数
+def encode_url(text: str):  # 加密字符串避免敏感
+    hex_text = ''.join(hex(ord(c))[2:] for c in text)
+    return hex_text
+
+
+def decode_url(hex_text: str):  # 解密字符串避免敏感
+    text = bytes.fromhex(hex_text).decode('utf-8')
+    return text

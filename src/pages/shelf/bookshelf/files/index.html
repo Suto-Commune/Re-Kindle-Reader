@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>书架</title>
+    <style>
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            margin-left: 20%;
+            margin-right: 20%;
+            justify-content: center;
+        }
+        .bookcard-img{
+				border:3px solid #ccc;
+				width:150px;
+				height:200px;
+				border-radius: 5px;
+				margin-top: 2px;
+				margin-left: 1px;
+                margin: 0 auto
+			}
+    </style>
+</head>
+
+<body>
+    <div style="text-align: center;" id="Title">
+        <h1>书架</h1>
+    </div>
+    
+
+    <div id="container" style="text-align: center;">
+        {% for i in book_info %}
+        <div style="margin: 50px;">
+            <img src="{{i['cover']}}" alt="这是一个封面" title="封面" class="bookcard-img"></img>
+            <p><b>{{i["name"]}}</b></p>
+            <p><i>{{i["author"]}}</i></p>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

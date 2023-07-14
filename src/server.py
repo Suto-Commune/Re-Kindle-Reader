@@ -10,15 +10,15 @@ import importlib
 
 class Server:
     def __init__(self):
-        self.app = Flask(__name__, static_folder='./reader/RKR', static_url_path='')
+        self.app = Flask(__name__, static_folder='../reader/RKR', static_url_path='/')
         ...
 
     def start(self, debug: bool, port: int):
         if debug:
-            logging.info("DEBUG IS TRUE.Using Flask.app.run")
+            logging.info("DEBUG IS TRUE.Using Flask.App.Run .")
             self.app.run(host='0.0.0.0', debug=True, port=port)
         else:
-            logging.info("Using WSGI")
+            logging.info("Using WSGI .")
             server = pywsgi.WSGIServer(('0.0.0.0', port), self.app)
             server.serve_forever()
 
@@ -48,11 +48,9 @@ class Server:
         for i in liss:
             self.app.register_blueprint(modules[i].page)
 
-
     def run_server(self, debug: bool, port: int):
         self.load_blueprint()
         self.start(debug, port)
-
 
 # Server1 = Server()
 # Server1.run_server(True, 5000)
