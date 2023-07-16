@@ -1,6 +1,5 @@
 import logging
 import src
-import config
 from src.server import Server
 
 logging.basicConfig(level=logging.INFO,

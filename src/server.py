@@ -1,7 +1,4 @@
-import flask
 from flask import Flask
-from flask import render_template as template
-from flask import request
 from gevent import pywsgi
 import logging
 import os
@@ -43,6 +40,7 @@ class Server:
                     m = m + "." + str(i[j])
             liss.append(m)
         for i in liss:
+            logging.info(f"Load {i} .")
             module = importlib.import_module(i)
             modules[i] = module
         for i in liss:

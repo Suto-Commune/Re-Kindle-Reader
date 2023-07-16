@@ -5,6 +5,17 @@ import httpx
 url = "http://127.0.0.1:12306/reader3"
 
 
+# 处理函数
+def encode_url(text: str):  # 加密字符串避免敏感
+    hex_text = ''.join(hex(ord(c))[2:] for c in text)
+    return hex_text
+
+
+def decode_url(hex_text: str):  # 解密字符串避免敏感
+    text = bytes.fromhex(hex_text).decode('utf-8')
+    return text
+
+
 # 书架信息
 def get_book_shelf():
     logging.info(f"\b[{__name__}] Get the book shelf data.")
@@ -16,6 +27,8 @@ def get_book_shelf():
             {
                 # 书籍URL
                 "book_url": i["bookUrl"],
+                # 16进制的书籍URL
+                "hex_book_url": encode_url(i["bookUrl"]),
                 # 源
                 "origin": i["origin"],
                 # 书名
@@ -85,14 +98,3 @@ def get_book_content(book_url: str, index: int):
         "index": index
     }
     return data
-
-
-# 处理函数
-def encode_url(text: str):  # 加密字符串避免敏感
-    hex_text = ''.join(hex(ord(c))[2:] for c in text)
-    return hex_text
-
-
-def decode_url(hex_text: str):  # 解密字符串避免敏感
-    text = bytes.fromhex(hex_text).decode('utf-8')
-    return text

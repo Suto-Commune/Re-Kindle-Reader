@@ -1,5 +1,5 @@
 def get():
-    import requests
+    import httpx
     import wget
     import os
     import sys
@@ -18,7 +18,7 @@ def get():
 
     if not "jar" in str(os.listdir("./reader")):
         logging.warning("Reader not found.Try to download it from github.")
-        latest = requests.get("https://api.github.com/repos/hectorqin/reader/releases/latest").json()
+        latest = httpx.get("https://api.github.com/repos/hectorqin/reader/releases/latest").json()
         url = str()
         for i in latest["assets"]:
             if ".jar" in i["name"]:

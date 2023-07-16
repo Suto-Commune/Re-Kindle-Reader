@@ -33,9 +33,12 @@
     <div id="container" style="text-align: center;">
         {% for i in book_info %}
         <div style="margin: 50px;">
-            <img src="{{i['cover']}}" alt="这是一个封面" title="封面" class="bookcard-img"></img>
-            <p><b>{{i["name"]}}</b></p>
-            <p><i>{{i["author"]}}</i></p>
+            <div onclick="window.location.href = './shelf/book_info?url={{i['hex_book_url']}}';">
+                <img src="{{i['cover']}}" alt="这是一个封面" title="封面" class="bookcard-img">
+                <p><b>{{i["name"]}}</b></p>
+                <p><i>{{i["author"]}}</i></p>
+            </div>
+
         </div>
         {% endfor %}
     </div>
