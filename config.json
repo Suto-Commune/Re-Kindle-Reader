@@ -1,5 +1,3 @@
 {
-  "java": "java" /*
-  eeeee
-  */
+  "java": "java" // path to java executable
 }
