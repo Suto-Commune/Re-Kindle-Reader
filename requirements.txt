@@ -1,5 +1,3 @@
 Flask
 httpx
 gevent
-psutil
-wget

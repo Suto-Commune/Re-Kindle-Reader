@@ -36,11 +36,11 @@ def get_book_shelf():
                 # 作者
                 "author": i["author"],
                 # 分类
-                "kind": i.get("kind", "未知"),
+                "kind": i["kind"],
                 # 封面
                 "cover": i["coverUrl"] if dict(i).get("coverUrl") is not None else "/asset/img/noCover.jpeg",
                 # 介绍
-                "intro": i.get("intro", "暂无介绍"),
+                "intro": i["intro"],
                 # 组
                 "group": i["group"],
                 # 最新章节标题

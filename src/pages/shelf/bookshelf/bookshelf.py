@@ -8,4 +8,4 @@ page = Blueprint(name, __name__, template_folder=".\\files")
 @page.route("/", methods=['GET', 'POST'])
 def bookshelf():
     book_info = book.get_book_shelf()
-    return template("bookshelf.html", book_info=book_info)
+    return template("index.html", book_info=book_info)
