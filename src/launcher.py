@@ -35,7 +35,7 @@ class Launcher:
                 f.write(str(p.pid))
             while p.poll() is None:
                 line = p.stdout.readline(-1)
-                s = str(line).replace("b'", "").replace("\\r\\n'", "")
+                s = str(line)[2:-1:1]
                 if "ReaderApplication Started" in s:
                     logging.info("\b[reader.jar] " + s)
         except FileNotFoundError as err:
