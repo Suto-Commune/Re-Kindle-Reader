@@ -1,13 +1,17 @@
-from flask import Flask
-from gevent import pywsgi
+import importlib
 import logging
 import os
-import importlib
+from pathlib import Path
+from typing import Generator
+
+from flask import Flask
+from gevent import pywsgi
 
 
 class Server:
     def __init__(self):
         self.app = Flask(__name__, static_folder='./RKR', static_url_path='/')
+        self.app.template_folder = Path('src/templates').resolve()
         ...
 
     def start(self, debug: bool, port: int):
@@ -20,35 +24,20 @@ class Server:
             server.serve_forever()
 
     def load_blueprint(self):
-        liss = list()
-        modules = {}
-        directory = ".\\src\\pages"
-        lis = list()
-        for root, dirs, files in os.walk(directory):
-            for file in files:
-                if file.endswith(".py"):
+        def get_blueprints() -> Generator[str, None, None]:
+            for root, dirs, files in os.walk(Path("src/pages")):
+                for file in filter(lambda x: x.endswith(".py"), files):
                     file_path = os.path.join(root, file)
+                    file_path = file_path.replace(".\\", "").replace(".py", "")
+                    yield file_path
 
-                    file_path = file_path.replace(".\\", "").replace(".py", "").split("\\")
-                    lis.append(file_path)
-        for i in lis:
-            m = ""
-            for j in range(0, len(i)):
-                if j == 0:
-                    m = i[0]
-                else:
-                    m = m + "." + str(i[j])
-            liss.append(m)
-        for i in liss:
-            logging.info(f"Load {i} .")
-            module = importlib.import_module(i)
-            modules[i] = module
-        for i in liss:
-            self.app.register_blueprint(modules[i].page)
+        for i in get_blueprints():
+            m = '.'.join(i.split("/"))
+            logging.info(f"Load {m} .")
+            module = importlib.import_module(m)
+            self.app.register_blueprint(module.page)
 
     def run_server(self, debug: bool, port: int):
         self.load_blueprint()
         self.start(debug, port)
 
-# Server1 = Server()
-# Server1.run_server(True, 5000)
