@@ -1,3 +1,6 @@
+from src.utils.config_parser import ConfigParser
+
+
 def get():
     import httpx
     import wget
@@ -10,6 +13,7 @@ def get():
 
     from src.utils.text import compare_version, is_ver_str
 
+    config = ConfigParser()
     logger = logging.getLogger(__name__)
     logger.info("Checking the ENV.")
 
@@ -50,7 +54,7 @@ def get():
                 sys.exit(0)
     try:
         # Run `java --version` to check the java version.
-        output = subprocess.check_output(['java', '--version'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output([config.java, '--version'], stderr=subprocess.STDOUT)
     except FileNotFoundError:
         logger.error('Java Not Found.Please Install Java 17+.You Can Download It From "https://adoptium.net"')
         sys.exit(0)
