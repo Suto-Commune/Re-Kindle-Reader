@@ -8,7 +8,6 @@ def get():
     import sys
     import logging
     import subprocess
-    import platform
     from pathlib import Path
     from urllib.error import HTTPError
 
@@ -64,7 +63,6 @@ def get():
     # Get first line of the output.
     info_list = output.decode('utf-8').strip().split('\n').pop(0).split(' ')
     info_list[2] = info_list[2].replace('"', "").replace("\r","")
-    print(info_list)
     # Get first version string.
     version_str = next(filter(lambda x: is_ver_str(x), info_list))
 

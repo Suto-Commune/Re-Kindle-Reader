@@ -28,9 +28,16 @@ class ConfigParser(UserDict):
 
     @staticmethod
     def _del_comments(json_raw: str):
-        json_str = re.sub(re.compile(r'//.*\n'), '', json_raw)
-        json_str = re.sub(re.compile(r'/\*[^.]*\*/'), '', json_str)
-        return json_str
+        look = False
+        for i, s in enumerate(json_raw):
+            if s == '"':
+                look = not look
+            if not look and s == '/':
+                if json_raw[i + 1] == '/':
+                    json_raw = json_raw[:i] + json_raw[json_raw.find('\n', i):]
+                elif json_raw[i + 1] == '*':
+                    json_raw = json_raw[:i] + json_raw[json_raw.find('*/', i) + 2:]
+        return json_raw
 
     def __repr__(self):
         return f'ConfigParser({self.data})'
