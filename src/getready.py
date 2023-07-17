@@ -1,4 +1,5 @@
-from src.utils.config_parser import ConfigParser
+# from src.utils.config_parser import ConfigParser
+from src.yaml_config_reader import config
 
 
 def get():
@@ -13,7 +14,7 @@ def get():
 
     from src.utils.text import compare_version, is_ver_str
 
-    config = ConfigParser()
+    # config = ConfigParser()
     logger = logging.getLogger(__name__)
     logger.info("Checking the ENV.")
 
@@ -54,7 +55,7 @@ def get():
                 sys.exit(0)
     try:
         # Run `java --version` to check the java version.
-        output = subprocess.check_output([config.java, '-version'],
+        output = subprocess.check_output([config["env"]["java_path"], '-version'],
                                          stderr=subprocess.STDOUT)
     except FileNotFoundError:
         logger.error('Java Not Found.Please Install Java 17+.You Can Download It From "https://adoptium.net"')
@@ -62,7 +63,7 @@ def get():
 
     # Get first line of the output.
     info_list = output.decode('utf-8').strip().split('\n').pop(0).split(' ')
-    info_list[2] = info_list[2].replace('"', "").replace("\r","")
+    info_list[2] = info_list[2].replace('"', "").replace("\r", "")
     # Get first version string.
     version_str = next(filter(lambda x: is_ver_str(x), info_list))
 

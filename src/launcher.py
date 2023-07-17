@@ -5,7 +5,8 @@ from pathlib import Path
 
 import psutil
 
-from src.utils.config_parser import ConfigParser
+# from src.utils.config_parser import ConfigParser
+from src.yaml_config_reader import config
 
 
 # Reader Start
@@ -28,7 +29,7 @@ class Launcher:
     @staticmethod
     def open():
         try:
-            p = subprocess.Popen([f"{ConfigParser().java}", "-jar", "reader.jar", "--reader.server.port=12306"],
+            p = subprocess.Popen([f"{config['env']['java_path']}", "-jar", "reader.jar", "--reader.server.port=12306"],
                                  cwd="./reader", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             with open("./pid", "w") as f:
                 f.write(str(p.pid))
