@@ -1,9 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="zh">
+<html>
 
 <head>
     <title>书架</title>
-    <style type="text/css">
+    <style>
         #container{
             display: flex;
             flex-wrap: wrap;
@@ -12,11 +12,13 @@
             margin-right: 20%;
             justify-content: center;
         }
-        .book-card-img{
+        .bookcard-img{
 				border:3px solid #ccc;
 				width:150px;
 				height:200px;
 				border-radius: 5px;
+				margin-top: 2px;
+				margin-left: 1px;
                 margin: 0 auto
 			}
     </style>
@@ -26,13 +28,13 @@
     <div style="text-align: center;" id="Title">
         <h1>书架</h1>
     </div>
-
+    
 
     <div id="container" style="text-align: center;">
         {% for i in book_info %}
         <div style="margin: 50px;">
             <div onclick="window.location.href = './shelf/book_info?url={{i['hex_book_url']}}';">
-                <img src="{{i['cover']}}" alt="这是一个封面" title="封面" class="book-card-img">
+                <img src="{{i['cover']}}" alt="这是一个封面" title="封面" class="bookcard-img">
                 <p><b>{{i["name"]}}</b></p>
                 <p><i>{{i["author"]}}</i></p>
             </div>
