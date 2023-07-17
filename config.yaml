@@ -1,8 +1,0 @@
-server:
-  # 服务器端口
-  port: 5000
-  # DEBUG模式
-  DEBUG: true
-env:
-  # Java路径
-  java_path: 'C:\Program Files\Eclipse Adoptium\jre-19.0.2.7-hotspot\bin\java.exe'

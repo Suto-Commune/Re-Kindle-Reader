@@ -1,5 +1,5 @@
 # from src.utils.config_parser import ConfigParser
-from src.yaml_config_reader import config
+from src.toml_config_reader import config
 
 
 def get():

@@ -6,7 +6,7 @@ from pathlib import Path
 import psutil
 
 # from src.utils.config_parser import ConfigParser
-from src.yaml_config_reader import config
+from src.toml_config_reader import config
 
 
 # Reader Start
