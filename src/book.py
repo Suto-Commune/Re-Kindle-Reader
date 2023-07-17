@@ -16,6 +16,18 @@ def decode_url(hex_text: str):  # 解密字符串避免敏感
     return text
 
 
+def get_path(name:str):
+    path = str(name).split(".")
+    temp_path = str()
+    for i in range(0, len(path) - 1):
+        temp_path = temp_path + '/' + path[i]
+    temp_path = f".{temp_path}/files"
+    return temp_path
+
+def get_name(name:str):
+    return str(name).replace(".", "")
+
+
 # 书架信息
 def get_book_shelf():
     logging.info(f"\b[{__name__}] Get the book shelf data.")
@@ -36,11 +48,11 @@ def get_book_shelf():
                 # 作者
                 "author": i["author"],
                 # 分类
-                "kind": i["kind"],
+                "kind": i.get("kind", "未知"),
                 # 封面
                 "cover": i["coverUrl"] if dict(i).get("coverUrl") is not None else "/asset/img/noCover.jpeg",
                 # 介绍
-                "intro": i["intro"],
+                "intro": i.get("intro", "暂无介绍"),
                 # 组
                 "group": i["group"],
                 # 最新章节标题
