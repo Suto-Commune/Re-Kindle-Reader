@@ -5,7 +5,7 @@ from pathlib import Path
 
 import psutil
 
-import config
+from src.utils.config_parser import ConfigParser
 
 
 # Reader Start
@@ -14,19 +14,21 @@ class Launcher:
 
     @staticmethod
     def reader_thread():
+
         if not Path("pid").exists():
             logging.info("Reader")
             Launcher.open()
         else:
             with open("pid", "r") as f:
                 pids = psutil.pids()
-                if f.readline() not in str(pids):
+                p = f.readline()
+                if p == "" or p not in str(pids):
                     Launcher.open()
 
     @staticmethod
     def open():
         try:
-            p = subprocess.Popen([f"{config.java_path}", "-jar", "reader.jar", "--reader.server.port=12306"],
+            p = subprocess.Popen([f"{ConfigParser().java}", "-jar", "reader.jar", "--reader.server.port=12306"],
                                  cwd="./reader", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             with open("./pid", "w") as f:
                 f.write(str(p.pid))
