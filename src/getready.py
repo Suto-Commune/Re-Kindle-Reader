@@ -8,6 +8,7 @@ def get():
     import sys
     import logging
     import subprocess
+    import platform
     from pathlib import Path
     from urllib.error import HTTPError
 
@@ -54,14 +55,16 @@ def get():
                 sys.exit(0)
     try:
         # Run `java --version` to check the java version.
-        output = subprocess.check_output([config.java, '--version'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output([config.java, '-version'],
+                                         stderr=subprocess.STDOUT)
     except FileNotFoundError:
         logger.error('Java Not Found.Please Install Java 17+.You Can Download It From "https://adoptium.net"')
         sys.exit(0)
 
     # Get first line of the output.
     info_list = output.decode('utf-8').strip().split('\n').pop(0).split(' ')
-
+    info_list[2] = info_list[2].replace('"', "").replace("\r","")
+    print(info_list)
     # Get first version string.
     version_str = next(filter(lambda x: is_ver_str(x), info_list))
 

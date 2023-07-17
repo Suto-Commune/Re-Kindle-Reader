@@ -1,6 +1,7 @@
 import importlib
 import logging
 import os
+import platform
 from pathlib import Path
 from typing import Generator
 
@@ -32,7 +33,7 @@ class Server:
                     yield file_path
 
         for i in get_blueprints():
-            m = '.'.join(i.split("/"))
+            m = '.'.join(i.split("/" if "Linux" in platform.system() else "\\"))
             logging.info(f"Load {m} .")
             module = importlib.import_module(m)
             self.app.register_blueprint(module.page)

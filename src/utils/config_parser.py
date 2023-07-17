@@ -16,7 +16,7 @@ class ConfigParser(UserDict):
         if isinstance(config, dict):
             data: dict = config
         elif isinstance(config, (str, PathLike)):
-            with open(config, 'r') as f:
+            with open(config, 'r',encoding="utf-8") as f:
                 data: dict = json.loads(self._del_comments(f.read()))
         elif isinstance(config, (IO, TextIOWrapper, BytesIO, BufferedRandom, ZipFile)):
             data: dict = json.load(config)
