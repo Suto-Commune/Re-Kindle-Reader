@@ -25,6 +25,8 @@ class Launcher:
                 p = f.readline()
                 if p == "" or p not in str(pids):
                     Launcher.open()
+                else:
+                    logging.warning(f"Reader is still running!PID is {p}.")
 
     @staticmethod
     def open():

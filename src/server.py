@@ -17,10 +17,10 @@ class Server:
 
     def start(self, debug: bool, port: int):
         if debug:
-            logging.info("DEBUG IS TRUE.Using Flask.App.Run .")
+            logging.info("DEBUG IS TRUE.Using Flask.app.run.")
             self.app.run(host='0.0.0.0', debug=True, port=port)
         else:
-            logging.info("Using WSGI .")
+            logging.info("Using WSGI.")
             server = pywsgi.WSGIServer(('0.0.0.0', port), self.app)
             server.serve_forever()
 
@@ -34,7 +34,7 @@ class Server:
 
         for i in get_blueprints():
             m = '.'.join(i.split("/" if "Linux" in platform.system() else "\\"))
-            logging.info(f"Load {m} .")
+            logging.info(f"Load {m}.")
             module = importlib.import_module(m)
             self.app.register_blueprint(module.page)
 
